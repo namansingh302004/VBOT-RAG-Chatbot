@@ -2,3 +2,22 @@ venv
 __pycache__
 __init__.py
 .env
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# editors
+.vscode/
+.idea/
+
+# data / indexes / artifacts
+artifacts/
+data/
+chroma/
+*.bin
+*.db
+*.sqlite
+*.parquet
