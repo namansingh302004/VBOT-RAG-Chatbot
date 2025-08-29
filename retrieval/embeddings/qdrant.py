@@ -25,5 +25,12 @@ def qdrant_ingest(collection_name="qdrant_store", batch_size=16):
     ids = _stable_ids(docs)
     store.add_documents(docs, ids=ids, batch_size=batch_size)
 
+def qdrant_retriever(collection_name="qdrant_store", k=5, mmr=False):
+    client = QdrantClient(url=URL, api_key=API, timeout=120.0)
+    store = QdrantVectorStore(client=client, collection_name=collection_name, embedding=embeddings)
+    if mmr:
+        return store.as_retriever(search_type="mmr", search_kwargs={"k": k, "fetch_k": 20, "lambda_mult": 0.5})
+    return store.as_retriever(search_kwargs={"k": k})
+
 if __name__ == "__main__":
     qdrant_ingest()
